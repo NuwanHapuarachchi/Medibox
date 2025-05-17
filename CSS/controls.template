@@ -1,0 +1,125 @@
+<div class="dark-controls-card">
+    <div class="controls-header">
+        <h3>MediBox Control Parameters</h3>
+    </div>
+
+    <div class="controls-info">
+        <p>Adjust these parameters to fine-tune the window control system. These settings affect how the window responds
+            to environmental changes.</p>
+    </div>
+
+    <div class="controls-help">
+        <ul>
+            <li><strong>Minimum Angle:</strong> The lowest position the window can go (0-120°)</li>
+            <li><strong>Control Factor:</strong> How responsive the window is to light changes (0-1)</li>
+            <li><strong>Ideal Temperature:</strong> The target temperature for medicine storage (10-40°C)</li>
+            <li><strong>Sample Interval:</strong> How often to take light readings (1-20 seconds)</li>
+            <li><strong>Send Interval:</strong> How often to send averaged data (10-300 seconds)</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .dark-controls-card {
+        background-color: rgba(36, 36, 36, 0.75);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        padding: 16px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .controls-header h3 {
+        margin: 0 0 12px 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: #03a9f4;
+    }
+
+    .controls-info {
+        margin-bottom: 12px;
+    }
+
+    .controls-info p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+    }
+
+    .controls-help {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 12px;
+        border-left: 3px solid #03a9f4;
+    }
+
+    .controls-help ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .controls-help li {
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .controls-help strong {
+        color: rgba(255, 255, 255, 0.87);
+    }
+
+    /* Fix slider styling specifically for this interface */
+    body.nr-dashboard-theme .nr-dashboard-slider {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 12px 0 !important;
+    }
+
+    body.nr-dashboard-theme .nr-dashboard-slider md-slider {
+        width: 90% !important;
+        margin: 0 auto !important;
+    }
+
+    body.nr-dashboard-theme .nr-dashboard-slider .value {
+        margin-top: 5px !important;
+        font-size: 18px !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+    }
+
+    body.nr-dashboard-theme .nr-dashboard-slider .label {
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
+        text-align: center !important;
+        width: 100% !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+</style>
+
+<script>
+    // Fix slider styling after DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all sliders in controls group
+    const sliders = document.querySelectorAll('.nr-dashboard-slider');
+    sliders.forEach(slider => {
+        // Force center alignment
+        slider.style.display = 'flex';
+        slider.style.flexDirection = 'column';
+        slider.style.alignItems = 'center';
+        
+        // Fix label and value display
+        const label = slider.querySelector('.label');
+        if (label) label.style.textAlign = 'center';
+        
+        const value = slider.querySelector('.value');
+        if (value) value.style.textAlign = 'center';
+    });
+});
+</script>

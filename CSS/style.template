@@ -1,0 +1,550 @@
+<style>
+    /* Dark Theme for MediBox Dashboard 2.0 - Enhanced Transparency */
+    body.nr-dashboard-theme {
+        --primary-color: #03a9f4;
+        --secondary-color: #0277bd;
+        --accent-color: #ff4081;
+        --success-color: #00c853;
+        --warning-color: #ffab00;
+        --danger-color: #ff3d00;
+        --background-color: rgba(18, 18, 18, 0.85);
+        --surface-color: rgba(30, 30, 30, 0.75);
+        --card-color: rgba(36, 36, 36, 0.7);
+        --text-color: rgba(255, 255, 255, 0.87);
+        --text-light: rgba(255, 255, 255, 0.6);
+        --border-color: rgba(255, 255, 255, 0.12);
+        --glass-effect: blur(10px);
+    }
+    /* Center text widgets */
+    body.nr-dashboard-theme .nr-dashboard-text {
+    text-align: center !important;
+    }
+    .nr-dashboard-template h2 {
+    color: #ffffff !important;
+    background-color: transparent !important; 
+    }
+    .nr-dashboard-template h3 {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    }
+    /* Center text content */
+    body.nr-dashboard-theme .nr-dashboard-text span {
+    display: block !important;
+    text-align: center !important;
+    }
+    
+    /* Fix label alignment in text widgets */
+    body.nr-dashboard-theme .md-label {
+    text-align: center !important;
+    width: 100% !important;
+    }
+    /* Base styling with background image */
+    body.nr-dashboard-theme {
+        background-image: linear-gradient(135deg, #0a192f 0%, #051937 100%);
+        background-attachment: fixed;
+    }
+    /* Center widgets inside their groups */
+    body.nr-dashboard-theme .nr-dashboard-widget {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+    }
+    
+    /* Fix gauge alignment */
+    body.nr-dashboard-theme .nr-dashboard-gauge {
+    display: block !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    }
+    body.nr-dashboard-theme ui-card-panel {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 670px !important;
+    float: none !important;
+    }
+    
+    /* Fix System Status card width specifically */
+    body.nr-dashboard-theme .glass-status-card {
+    width: 670px !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    }
+    
+    /* Center dashboard widgets */
+    body.nr-dashboard-theme .nr-dashboard-widget {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    }
+    
+    /* Center dashboard widget content */
+    body.nr-dashboard-theme .nr-dashboard-widget>* {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    }
+    
+    /* Fix specific widget types */
+    body.nr-dashboard-theme .nr-dashboard-template,
+    body.nr-dashboard-theme .nr-dashboard-gauge,
+    body.nr-dashboard-theme .nr-dashboard-chart,
+    body.nr-dashboard-theme .nr-dashboard-slider,
+    body.nr-dashboard-theme .nr-dashboard-text {
+    width: 100% !important;
+    max-width: 670px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    }
+    
+    /* Fix black text in template widgets */
+    body.nr-dashboard-theme .nr-dashboard-template h1,
+    body.nr-dashboard-theme .nr-dashboard-template h2,
+    body.nr-dashboard-theme .nr-dashboard-template h3,
+    body.nr-dashboard-theme .nr-dashboard-template h4,
+    body.nr-dashboard-theme .nr-dashboard-template h5,
+    body.nr-dashboard-theme .nr-dashboard-template h6,
+    body.nr-dashboard-theme .nr-dashboard-template p,
+    body.nr-dashboard-theme .nr-dashboard-template span,
+    body.nr-dashboard-theme .nr-dashboard-template div,
+    body.nr-dashboard-theme .nr-dashboard-template li {
+    color: rgba(255, 255, 255, 0.87) !important;
+    background-color: transparent !important;
+    }
+    
+    /* Fix slider visibility */
+    body.nr-dashboard-theme .nr-dashboard-slider {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 10px auto !important;
+    padding: 12px 0 !important;
+    }
+    
+    body.nr-dashboard-theme .nr-dashboard-slider md-slider {
+    width: 90% !important;
+    margin: 0 auto !important;
+    }
+    
+    body.nr-dashboard-theme .nr-dashboard-slider .md-thumb-container {
+    visibility: visible !important;
+    opacity: 1 !important;
+    }
+    
+    body.nr-dashboard-theme .nr-dashboard-slider .md-track-container {
+    width: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    }
+    /* Fix slider visibility issues */
+    .nr-dashboard-slider {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    }
+    
+    .nr-dashboard-slider .md-track-container {
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    }
+    
+    .nr-dashboard-slider .md-thumb-container {
+    visibility: visible !important;
+    opacity: 1 !important;
+    }
+    
+    /* Fix text color issues */
+    .nr-dashboard-template h2,
+    .nr-dashboard-template h3,
+    .nr-dashboard-template p,
+    .nr-dashboard-template div {
+    color: rgba(255, 255, 255, 0.87) !important;
+    background-color: transparent !important;
+    }
+    
+    /* Fix System Status card width */
+    .glass-status-card {
+    width: 670px !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    }
+    /* Fix Window Status Display width */
+    body.nr-dashboard-theme .glass-window-card {
+    width: 670px !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    }
+    /* Center chart containers */
+    body.nr-dashboard-theme .chart-container {
+    margin: 0 auto !important;
+    }
+    
+    /* Center slider widgets */
+    body.nr-dashboard-theme .md-track-container {
+    margin: 0 auto !important;
+    }
+    /* Center UI controls and add proper spacing */
+    body.nr-dashboard-theme .nr-dashboard-slider {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 12px 0 !important;
+    }
+    
+    /* Center slider handles and track */
+    body.nr-dashboard-theme .nr-dashboard-slider md-slider {
+    width: 90% !important;
+    margin: 0 auto !important;
+    }
+    
+    /* Display current value prominently */
+    body.nr-dashboard-theme .nr-dashboard-slider .value {
+    margin-top: 5px !important;
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    }
+    
+    /* Improve slider label appearance */
+    body.nr-dashboard-theme .nr-dashboard-slider .label {
+    margin-bottom: 8px !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    width: 100% !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    /* Show min/max values */
+    body.nr-dashboard-theme md-slider .md-track-container:before,
+    body.nr-dashboard-theme md-slider .md-track-container:after {
+    content: attr(data-min);
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    }
+    /* Make chart axis labels white */
+    body.nr-dashboard-theme .nr-dashboard-chart .ct-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+    fill: rgba(255, 255, 255, 0.8) !important;
+    font-size: 12px !important;
+    }
+    
+    /* Ensure chart axis lines are visible */
+    body.nr-dashboard-theme .nr-dashboard-chart .ct-grid {
+    stroke: rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Make chart points more visible */
+    body.nr-dashboard-theme .nr-dashboard-chart .ct-point {
+    stroke-width: 6px !important;
+    }
+    
+    /* Improve chart line visibility */
+    body.nr-dashboard-theme .nr-dashboard-chart .ct-line {
+    stroke-width: 2px !important;
+    }
+    
+    /* Add labels for chart axes */
+    body.nr-dashboard-theme .nr-dashboard-chart .ct-axis-title {
+    fill: rgba(255, 255, 255, 0.6) !important;
+    font-size: 12px !important;
+    }
+    /* Chart text and grid color fixes */
+    body.nr-dashboard-theme .ct-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+    fill: rgba(255, 255, 255, 0.8) !important;
+    font-size: 12px !important;
+    }
+    
+    body.nr-dashboard-theme .ct-grid {
+    stroke: rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Override specific chart elements with !important */
+    body.nr-dashboard-theme .ct-chart-line .ct-label,
+    body.nr-dashboard-theme .ct-chart-bar .ct-label {
+    fill: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    }
+    
+    /* Axis label fixes for specific chart types */
+    body.nr-dashboard-theme .ct-label.ct-horizontal,
+    body.nr-dashboard-theme .ct-label.ct-vertical {
+    color: rgba(255, 255, 255, 0.8) !important;
+    fill: rgba(255, 255, 255, 0.8) !important;
+    }
+    
+    /* Make chart lines and points more visible */
+    body.nr-dashboard-theme .ct-series .ct-line {
+    stroke-width: 2px !important;
+    }
+    
+    body.nr-dashboard-theme .ct-series .ct-point {
+    stroke-width: 6px !important;
+    }
+    
+    /* Improve visibility of chart grid lines */
+    body.nr-dashboard-theme .ct-grid {
+    stroke-dasharray: 2px !important;
+    stroke-width: 1px !important;
+    }
+    body.nr-dashboard-theme md-slider .md-track-container:after {
+    content: attr(data-max);
+    left: auto;
+    right: 0;
+    }
+    /* Improve widget spacing */
+    body.nr-dashboard-theme .nr-dashboard-widget {
+    padding: 8px 0 !important;
+    }
+    
+    /* Improve chart positioning */
+    body.nr-dashboard-theme .nr-dashboard-chart {
+    text-align: center !important;
+    }
+    body.nr-dashboard-theme md-content {
+        background-color: transparent !important;
+        color: var(--text-color) !important;
+    }
+
+    /* Card styling with glass effect */
+    body.nr-dashboard-theme md-card {
+        background-color: var(--card-color) !important;
+        color: var(--text-color) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        overflow: hidden;
+        margin-bottom: 16px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: var(--glass-effect);
+        -webkit-backdrop-filter: var(--glass-effect);
+        transition: all 0.3s ease;
+    }
+
+    /* Fix for group spaces to match theme */
+    body.nr-dashboard-theme ui-card-panel {
+        background-color: var(--card-color) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: var(--glass-effect);
+        -webkit-backdrop-filter: var(--glass-effect);
+        margin-bottom: 20px !important;
+    }
+
+    /* Fix group titles */
+    body.nr-dashboard-theme .nr-dashboard-cardtitle {
+        background: linear-gradient(135deg, rgba(3, 169, 244, 0.8), rgba(2, 119, 189, 0.8)) !important;
+        color: white !important;
+        padding: 16px !important;
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        letter-spacing: 0.5px;
+    }
+
+    /* Fix for text fields and inputs */
+    body.nr-dashboard-theme md-input-container input,
+    body.nr-dashboard-theme md-input-container textarea,
+    body.nr-dashboard-theme md-input-container md-select,
+    body.nr-dashboard-theme md-input-container .md-input {
+        background-color: rgba(48, 48, 48, 0.7) !important;
+        color: rgba(255, 255, 255, 0.87) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        border-radius: 8px !important;
+        padding: 4px 8px !important;
+        backdrop-filter: var(--glass-effect);
+        -webkit-backdrop-filter: var(--glass-effect);
+    }
+
+    /* Fix labels for inputs */
+    body.nr-dashboard-theme md-input-container:not(.md-input-invalid) label {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    /* Fix placeholders */
+    body.nr-dashboard-theme ::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    body.nr-dashboard-theme ::-moz-placeholder {
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    body.nr-dashboard-theme :-ms-input-placeholder {
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    /* Fix for form focus states */
+    body.nr-dashboard-theme md-input-container.md-input-focused input,
+    body.nr-dashboard-theme md-input-container.md-input-focused textarea {
+        border-color: var(--primary-color) !important;
+    }
+
+    body.nr-dashboard-theme md-input-container.md-input-focused label {
+        color: var(--primary-color) !important;
+    }
+
+    /* Fix for number inputs */
+    body.nr-dashboard-theme input[type="number"] {
+        background-color: rgba(48, 48, 48, 0.7) !important;
+        color: rgba(255, 255, 255, 0.87) !important;
+    }
+
+    /* Improve numeric inputs */
+    body.nr-dashboard-theme .nr-dashboard-numeric {
+        background-color: rgba(48, 48, 48, 0.7) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 8px !important;
+        overflow: hidden;
+    }
+
+    body.nr-dashboard-theme .nr-dashboard-numeric input {
+        color: rgba(255, 255, 255, 0.87) !important;
+        background-color: transparent !important;
+    }
+
+    /* Fix group content areas */
+    body.nr-dashboard-theme .nr-dashboard-cardcontainer {
+        background-color: transparent !important;
+    }
+
+    /* Improve dropdown appearance */
+    body.nr-dashboard-theme md-select-menu md-content {
+        background-color: rgba(48, 48, 48, 0.95) !important;
+        border-radius: 8px !important;
+        backdrop-filter: var(--glass-effect);
+        -webkit-backdrop-filter: var(--glass-effect);
+    }
+
+    body.nr-dashboard-theme md-select-menu md-option {
+        color: rgba(255, 255, 255, 0.87) !important;
+    }
+
+    body.nr-dashboard-theme md-select-menu md-option:hover {
+        background-color: rgba(3, 169, 244, 0.2) !important;
+    }
+
+    body.nr-dashboard-theme md-select-menu md-option[selected] {
+        color: var(--primary-color) !important;
+    }
+
+    /* Fix item hover states */
+    body.nr-dashboard-theme md-list-item:hover {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    /* Fix UI-Template backgrounds */
+    body.nr-dashboard-theme .nr-dashboard-template {
+        background-color: transparent !important;
+    }
+
+    /* Remove any leftover white backgrounds */
+    body.nr-dashboard-theme .md-open-menu-container {
+        background-color: rgba(48, 48, 48, 0.95) !important;
+        border-radius: 8px !important;
+        backdrop-filter: var(--glass-effect);
+        -webkit-backdrop-filter: var(--glass-effect);
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    /* Center widgets inside their groups */
+    body.nr-dashboard-theme .nr-dashboard-widget {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+    text-align: center !important;
+    }
+    
+    /* Fix gauge alignment */
+    body.nr-dashboard-theme .nr-dashboard-gauge {
+    display: block !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    }
+    
+    /* Center chart containers */
+    body.nr-dashboard-theme .chart-container {
+    margin: 0 auto !important;
+    display: block !important;
+    }
+    
+    /* Center text widgets */
+    body.nr-dashboard-theme .nr-dashboard-text {
+    text-align: center !important;
+    }
+    
+    /* Center text content */
+    body.nr-dashboard-theme .nr-dashboard-text span {
+    display: block !important;
+    text-align: center !important;
+    }
+    
+    /* Fix label alignment in text widgets */
+    body.nr-dashboard-theme .md-label {
+    text-align: center !important;
+    width: 100% !important;
+    }
+    
+    /* Center sliders */
+    body.nr-dashboard-theme md-slider {
+    width: 90% !important;
+    margin: 0 auto !important;
+    display: block !important;
+    }
+    
+    /* Improve chart positioning */
+    body.nr-dashboard-theme .nr-dashboard-chart {
+    text-align: center !important;
+    }
+</style>
+
+<!-- Fix for Safari and older browsers that don't support custom properties -->
+<script>
+    (function() {
+    // Detect if browser supports CSS custom properties
+    if (window.CSS && window.CSS.supports && window.CSS.supports('--a', '0')) {
+        console.log('CSS custom properties are supported');
+    } else {
+        // Fallback for browsers that don't support CSS custom properties
+        console.log('CSS custom properties are NOT supported - applying fallbacks');
+        document.body.classList.add('no-css-vars');
+        
+        var style = document.createElement('style');
+        style.textContent = `
+            body.nr-dashboard-theme.no-css-vars {
+                background-image: linear-gradient(135deg, #0a192f 0%, #051937 100%);
+                background-attachment: fixed;
+            }
+            
+            body.nr-dashboard-theme.no-css-vars md-content {
+                background-color: transparent !important;
+                color: rgba(255, 255, 255, 0.87) !important;
+            }
+            
+            body.nr-dashboard-theme.no-css-vars md-card,
+            body.nr-dashboard-theme.no-css-vars ui-card-panel {
+                background-color: rgba(36, 36, 36, 0.7) !important;
+                color: rgba(255, 255, 255, 0.87) !important;
+            }
+            
+            body.nr-dashboard-theme.no-css-vars md-input-container input,
+            body.nr-dashboard-theme.no-css-vars md-input-container textarea {
+                background-color: rgba(48, 48, 48, 0.7) !important;
+                color: rgba(255, 255, 255, 0.87) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+})();
+</script>

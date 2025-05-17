@@ -1,0 +1,884 @@
+[
+    {
+        "id": "medibox_flow",
+        "type": "tab",
+        "label": "Medibox Control",
+        "disabled": false,
+        "info": "Enhanced Medibox Control Flow"
+    },
+    {
+        "id": "light_chart",
+        "type": "ui_chart",
+        "z": "medibox_flow",
+        "name": "Light Intensity History",
+        "group": "light_intensity_group",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "label": "Light Intensity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for data...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 500,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "light_intensity_sub",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Light Intensity",
+        "topic": "medibox/light/average",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "light_chart",
+                "light_gauge"
+            ]
+        ]
+    },
+    {
+        "id": "light_gauge",
+        "type": "ui_gauge",
+        "z": "medibox_flow",
+        "name": "Current Light Level",
+        "group": "light_intensity_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Light Intensity",
+        "label": "0-1",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 490,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "temp_sub",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Temperature",
+        "topic": "MediBox_TEMP_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "temp_gauge",
+                "temp_chart"
+            ]
+        ]
+    },
+    {
+        "id": "humid_sub",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Humidity",
+        "topic": "MediBox_HUM_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "humid_gauge",
+                "humid_chart"
+            ]
+        ]
+    },
+    {
+        "id": "temp_gauge",
+        "type": "ui_gauge",
+        "z": "medibox_flow",
+        "name": "Temperature Gauge",
+        "group": "temp_humid_group",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "24",
+        "seg2": "32",
+        "className": "",
+        "x": 500,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "humid_gauge",
+        "type": "ui_gauge",
+        "z": "medibox_flow",
+        "name": "Humidity Gauge",
+        "group": "temp_humid_group",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "65",
+        "seg2": "80",
+        "className": "",
+        "x": 480,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "temp_chart",
+        "type": "ui_chart",
+        "z": "medibox_flow",
+        "name": "Temperature History",
+        "group": "temp_humid_group",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for data...",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 500,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "humid_chart",
+        "type": "ui_chart",
+        "z": "medibox_flow",
+        "name": "Humidity History",
+        "group": "temp_humid_group",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for data...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 480,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sample_interval_slider",
+        "type": "ui_slider",
+        "z": "medibox_flow",
+        "name": "Sampling Interval",
+        "label": "Sampling Interval (seconds)",
+        "tooltip": "",
+        "group": "light_intensity_group",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "medibox/settings/sampleInterval",
+        "topicType": "str",
+        "min": "1",
+        "max": "60",
+        "step": 1,
+        "className": "",
+        "x": 490,
+        "y": 420,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "send_interval_slider",
+        "type": "ui_slider",
+        "z": "medibox_flow",
+        "name": "Sending Interval",
+        "label": "Sending Interval (seconds)",
+        "tooltip": "",
+        "group": "light_intensity_group",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "medibox/settings/sendInterval",
+        "topicType": "str",
+        "min": "30",
+        "max": "300",
+        "step": 10,
+        "className": "",
+        "x": 480,
+        "y": 480,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out",
+        "type": "mqtt out",
+        "z": "medibox_flow",
+        "name": "MQTT Out",
+        "topic": "",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker",
+        "x": 790,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "min_angle_slider",
+        "type": "ui_slider",
+        "z": "medibox_flow",
+        "name": "Minimum Angle",
+        "label": "Minimum Angle (θoffset)",
+        "tooltip": "Set the minimum angle of the shaded sliding window",
+        "group": "servo_control_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "Medibox_Servo_Angle_Nuwan",
+        "topicType": "str",
+        "min": 0,
+        "max": 120,
+        "step": 1,
+        "className": "",
+        "x": 480,
+        "y": 600,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "control_factor_slider",
+        "type": "ui_slider",
+        "z": "medibox_flow",
+        "name": "Control Factor",
+        "label": "Control Factor (γ)",
+        "tooltip": "Set the controlling factor used to calculate the motor angle",
+        "group": "servo_control_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "Medibox_Servo_CF_Nuwan",
+        "topicType": "str",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "className": "",
+        "x": 480,
+        "y": 720,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "ideal_temp_slider",
+        "type": "ui_slider",
+        "z": "medibox_flow",
+        "name": "Ideal Temperature",
+        "label": "Ideal Temp (Tmed)",
+        "tooltip": "Set the ideal storage temperature for the medicine",
+        "group": "servo_control_group",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "Medibox_Ideal_Temp_Nuwan",
+        "topicType": "str",
+        "min": 10,
+        "max": 40,
+        "step": 0.5,
+        "className": "",
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "current_angle_sub",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Current Servo Angle",
+        "topic": "Medibox_Window_Angle_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 860,
+        "wires": [
+            [
+                "current_angle_text"
+            ]
+        ]
+    },
+    {
+        "id": "current_angle_text",
+        "type": "ui_text",
+        "z": "medibox_flow",
+        "group": "servo_control_group",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Current Angle Display",
+        "label": "Current Servo Angle",
+        "format": "{{msg.payload}}°",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 500,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "bridge_light_topics",
+        "type": "function",
+        "z": "medibox_flow",
+        "name": "Bridge Light Topics",
+        "func": "// Bridge data from Medibox_Light_Nuwan to medibox/light/average\nreturn { payload: msg.payload, topic: \"medibox/light/average\" };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "light_topic_bridge_in",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Light Intensity (Original Topic)",
+        "topic": "Medibox_Light_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "bridge_light_topics"
+            ]
+        ]
+    },
+    {
+        "id": "status_sub",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Device Status",
+        "topic": "MediBox_Status_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 900,
+        "wires": [
+            [
+                "status_text"
+            ]
+        ]
+    },
+    {
+        "id": "status_text",
+        "type": "ui_text",
+        "z": "medibox_flow",
+        "group": "servo_control_group",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Device Status Display",
+        "label": "Device Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 500,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "84024d4eedef8779",
+        "type": "ui_template",
+        "z": "medibox_flow",
+        "group": "temp_humid_group",
+        "name": "Enhanced Background & Styling",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    /* Import fonts */\n    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\n\n    /* Global dashboard background styling */\n    body.nr-dashboard-theme md-content {\n        background: linear-gradient(135deg, rgba(16, 20, 38, 0.75), rgba(32, 60, 120, 0.85)),\n            url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=2074&auto=format&fit=crop') no-repeat center center fixed;\n        background-size: cover;\n        font-family: 'Inter', sans-serif;\n    }\n\n    /* Modern color palette */\n    :root {\n        --primary-color: #3C7BFF;\n        --primary-light: #5D92FF;\n        --primary-dark: #2960D8;\n        --secondary-color: #00E676;\n        --secondary-light: #66FFA6;\n        --secondary-dark: #00B248;\n        --accent-color: #FF5252;\n        --accent-light: #FF8A80;\n        --accent-dark: #C50E29;\n        --neutral-50: #F9FAFB;\n        --neutral-100: #F3F4F6;\n        --neutral-200: #E5E7EB;\n        --neutral-700: #374151;\n        --neutral-800: #1F2937;\n        --neutral-900: #111827;\n    }\n\n    /* Card styling with glassmorphism effect */\n    .nr-dashboard-theme ui-card-panel {\n        background: rgba(255, 255, 255, 0.1) !important;\n        backdrop-filter: blur(12px) !important;\n        -webkit-backdrop-filter: blur(12px) !important;\n        border: 1px solid rgba(255, 255, 255, 0.2) !important;\n        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.0) !important;\n        border-radius: 16px !important;\n        margin: 12px !important;\n        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n        overflow: hidden;\n    }\n\n    .nr-dashboard-theme ui-card-panel:hover {\n        transform: translateY(-5px) scale(1.02);\n        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;\n        border: 1px solid rgba(255, 255, 255, 0.2) !important;\n    }\n    /* Override the grey background for md-card elements */\n    body.nr-dashboard-theme md-content md-card {\n    background-color: transparent !important;\n    background: none !important;\n    box-shadow: none !important;\n    }\n    \n    /* If you want to be even more specific for just your time widget */\n    body.nr-dashboard-theme md-content md-card.time-widget {\n    background-color: transparent !important;\n    background: none !important;\n    box-shadow: none !important;\n    }\n    /* Card header styling */\n    .nr-dashboard-theme .nr-dashboard-cardtitle {\n        color: var(--neutral-100) !important;\n        font-weight: 600 !important;\n        font-size: 1.1em !important;\n        text-transform: uppercase;\n        letter-spacing: 1px;\n        padding: 12px 16px !important;\n        border-bottom: 1px solid rgba(255, 255, 255, 0.0);\n        background: linear-gradient(to right, rgba(60, 123, 255, 0.1), rgba(0, 0, 0, 0));\n    }\n\n    /* Gauge styling */\n    .nr-dashboard-theme .nr-dashboard-gauge {\n        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));\n    }\n\n    .nr-dashboard-theme .nr-dashboard-gauge text,\n    .nr-dashboard-theme .nr-dashboard-chart text {\n        font-family: 'Inter', sans-serif !important;\n        font-weight: 500 !important;\n        fill: var(--neutral-100) !important;\n    }\n\n    /* Dashboard text colors */\n    .nr-dashboard-theme .nr-dashboard-text {\n        color: var(--neutral-100) !important;\n    }\n\n    /* Status indicators */\n    .status-indicator {\n        display: inline-block;\n        width: 12px;\n        height: 12px;\n        border-radius: 50%;\n        margin-right: 8px;\n        position: relative;\n    }\n\n    .status-online {\n        background-color: var(--secondary-color);\n        box-shadow: 0 0 12px var(--secondary-color);\n        animation: pulse 2s infinite;\n    }\n\n    .status-offline {\n        background-color: var(--accent-color);\n        box-shadow: 0 0 12px var(--accent-color);\n    }\n\n    /* Pulse animation */\n    @keyframes pulse {\n        0% {\n            box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);\n        }\n\n        70% {\n            box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);\n        }\n\n        100% {\n            box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);\n        }\n    }\n\n    /* Widget styling */\n    .nr-dashboard-theme .nr-dashboard-slider .md-thumb:after {\n        background-color: var(--primary-color) !important;\n        border-color: var(--primary-light) !important;\n    }\n\n    .nr-dashboard-theme .nr-dashboard-slider .md-track-fill {\n        background-color: var(--primary-color) !important;\n    }\n\n    .nr-dashboard-theme .nr-dashboard-slider .md-focus-ring {\n        background-color: var(--primary-light) !important;\n    }\n\n    /* Custom group styles */\n    .environment-card ui-card-panel {\n        border-left: 4px solid var(--secondary-color) !important;\n    }\n\n    .status-card ui-card-panel {\n        border-left: 4px solid var(--primary-color) !important;\n    }\n\n    .light-card ui-card-panel {\n        border-left: 4px solid #FF9800 !important;\n    }\n\n    .servo-card ui-card-panel {\n        border-left: 4px solid #9C27B0 !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 510,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "deffb690099a2eef",
+        "type": "ui_template",
+        "z": "medibox_flow",
+        "group": "128298ab8fe6f665",
+        "name": "Notification System",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "format": "<style>\n.notification-item {\n    padding: 10px 15px;\n    margin-bottom: 8px;\n    border-radius: 8px;\n    display: flex;\n    align-items: center;\n    border-left: 4px solid;\n    background: rgba(255, 255, 255, 0.03);\n    transition: all 0.3s ease;\n}\n\n.notification-item:hover {\n    transform: translateX(5px);\n    background: rgba(255, 255, 255, 0.06);\n}\n\n.notification-item.info {\n    border-left-color: #3C7BFF;\n}\n\n.notification-item.success {\n    border-left-color: #00E676;\n}\n\n.notification-item.warning {\n    border-left-color: #FF9800;\n}\n\n.notification-item.danger {\n    border-left-color: #FF5252;\n}\n\n.notification-icon {\n    margin-right: 15px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 32px;\n    height: 32px;\n    border-radius: 50%;\n    font-size: 16px;\n}\n\n.notification-icon.info {\n    background: rgba(60, 123, 255, 0.15);\n    color: #3C7BFF;\n}\n\n.notification-icon.success {\n    background: rgba(0, 230, 118, 0.15);\n    color: #00E676;\n}\n\n.notification-icon.warning {\n    background: rgba(255, 152, 0, 0.15);\n    color: #FF9800;\n}\n\n.notification-icon.danger {\n    background: rgba(255, 82, 82, 0.15);\n    color: #FF5252;\n}\n\n.notification-content {\n    flex: 1;\n}\n\n.notification-title {\n    color: #F9FAFB;\n    font-weight: 600;\n    font-size: 0.9em;\n    margin-bottom: 2px;\n}\n\n.notification-message {\n    color: #A3AED0;\n    font-size: 0.8em;\n}\n\n.notification-time {\n    color: #718096;\n    font-size: 0.75em;\n    margin-top: 3px;\n}\n\n@keyframes slideIn {\n    from { transform: translateX(-10px); opacity: 0; }\n    to { transform: translateX(0); opacity: 1; }\n}\n</style>\n\n<div style=\"padding: 0 5px;\">\n    <div id=\"notification-container\">\n        <div class=\"notification-item info\" style=\"animation: slideIn 0.3s ease-out;\">\n            <div class=\"notification-icon info\">\n                <i class=\"fa fa-info\"></i>\n            </div>\n            <div class=\"notification-content\">\n                <div class=\"notification-title\">System Started</div>\n                <div class=\"notification-message\">MediBox system is online and transmitting data</div>\n                <div class=\"notification-time\">Just now</div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<script>\nconst notificationContainer = document.getElementById('notification-container');\nlet notifications = [];\n\n// Add a notification\nfunction addNotification(type, title, message) {\n    // Create notification timestamp\n    const now = new Date();\n    const timeStr = now.getHours() + ':' + \n                  (now.getMinutes() < 10 ? '0' : '') + \n                  now.getMinutes();\n    \n    // Create notification object\n    const notification = {\n        id: Date.now(),\n        type: type,\n        title: title,\n        message: message,\n        time: timeStr,\n        timestamp: now\n    };\n    \n    // Add to array and update display\n    notifications.unshift(notification);\n    if (notifications.length > 5) {\n        notifications.pop();\n    }\n    updateNotifications();\n}\n\n// Update notification display\nfunction updateNotifications() {\n    notificationContainer.innerHTML = '';\n    \n    notifications.forEach((notification, index) => {\n        const timeAgo = getTimeAgo(notification.timestamp);\n        \n        const notifHTML = `\n            <div class=\"notification-item ${notification.type}\" style=\"animation: slideIn ${0.2 + index * 0.1}s ease-out;\">\n                <div class=\"notification-icon ${notification.type}\">\n                    <i class=\"fa ${getIconClass(notification.type)}\"></i>\n                </div>\n                <div class=\"notification-content\">\n                    <div class=\"notification-title\">${notification.title}</div>\n                    <div class=\"notification-message\">${notification.message}</div>\n                    <div class=\"notification-time\">${timeAgo}</div>\n                </div>\n            </div>\n        `;\n        \n        notificationContainer.innerHTML += notifHTML;\n    });\n}\n\n// Helper to get appropriate icon\nfunction getIconClass(type) {\n    switch(type) {\n        case 'info': return 'fa-info';\n        case 'success': return 'fa-check';\n        case 'warning': return 'fa-exclamation-triangle';\n        case 'danger': return 'fa-exclamation-circle';\n        default: return 'fa-bell';\n    }\n}\n\n// Helper to format time ago\nfunction getTimeAgo(timestamp) {\n    const now = new Date();\n    const diff = Math.floor((now - timestamp) / 1000);\n    \n    if (diff < 60) return 'Just now';\n    if (diff < 3600) return Math.floor(diff / 60) + ' minutes ago';\n    if (diff < 86400) return Math.floor(diff / 3600) + ' hours ago';\n    return Math.floor(diff / 86400) + ' days ago';\n}\n\n// Watch for incoming messages to generate notifications\nscope.$watch('msg', function(msg) {\n    if (!msg || !msg.topic) return;\n    \n    // Generate appropriate notifications based on incoming data\n    if (msg.topic === 'MediBox_TEMP_Nuwan' && msg.payload > 30) {\n        addNotification('warning', 'High Temperature', `Temperature reading is ${msg.payload}°C, above normal range`);\n    } else if (msg.topic === 'MediBox_HUM_Nuwan' && msg.payload > 75) {\n        addNotification('warning', 'High Humidity', `Humidity level is ${msg.payload}%, above optimal range`);\n    } else if (msg.topic === 'MediBox_Status_Nuwan' && msg.payload.includes('Warning')) {\n        addNotification('danger', 'System Warning', msg.payload);\n    }\n});\n\n// Generate a success notification for demo\nsetTimeout(() => {\n    addNotification('success', 'Connection Secure', 'HiveMQ connection established with TLS encryption');\n}, 3000);\n\n// Generate a warning notification for demo\nsetTimeout(() => {\n    addNotification('warning', 'Temperature Fluctuation', 'Temperature changing rapidly, check ventilation');\n}, 8000);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "notifications-template",
+        "x": 190,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sample_interval_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Sample Interval Input",
+        "topic": "medibox/settings/sampleInterval",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 420,
+        "wires": [
+            [
+                "sample_interval_slider"
+            ]
+        ]
+    },
+    {
+        "id": "send_interval_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Send Interval Input",
+        "topic": "medibox/settings/sendInterval",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "send_interval_slider"
+            ]
+        ]
+    },
+    {
+        "id": "mode_switch_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Servo Mode Input",
+        "topic": "Medibox_Servo_Mode_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "mode_input_handler"
+            ]
+        ]
+    },
+    {
+        "id": "min_angle_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Min Angle Input",
+        "topic": "Medibox_Servo_Angle_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "min_angle_slider"
+            ]
+        ]
+    },
+    {
+        "id": "control_factor_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Control Factor Input",
+        "topic": "Medibox_Servo_CF_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 720,
+        "wires": [
+            [
+                "control_factor_slider"
+            ]
+        ]
+    },
+    {
+        "id": "ideal_temp_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Ideal Temp Input",
+        "topic": "Medibox_Ideal_Temp_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 780,
+        "wires": [
+            [
+                "ideal_temp_slider"
+            ]
+        ]
+    },
+    {
+        "id": "manual_servo_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Manual Servo Input",
+        "topic": "Medibox_Manual_Servo_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "check_servo_mode",
+        "type": "function",
+        "z": "medibox_flow",
+        "name": "Check Servo Mode",
+        "func": "// Always operate in automatic mode\ncontext.flow.set('servo_mode', 'auto');\n\n// For messages related to the deprecated manual mode\nif (msg.topic === 'Medibox_Manual_Servo_Nuwan') {\n    // Ignore manual servo commands - system now only supports auto mode\n    node.status({fill:\"yellow\", shape:\"dot\", text:\"Manual mode not supported\"});\n    return null; // Block the message\n}\n\n// If topic is from mode switch, respond with auto mode enforcement\nif (msg.topic === 'Medibox_Servo_Mode_Nuwan') {\n    // Replace any incoming mode with auto\n    msg.payload = 'auto';\n}\n\n// For all other messages, pass through\nnode.status({});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 640,
+        "wires": [
+            [
+                "mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "mode_input_handler",
+        "type": "function",
+        "z": "medibox_flow",
+        "name": "Mode Input Handler",
+        "func": "// Always set to auto mode regardless of received payload\ncontext.flow.set('servo_mode', 'auto');\n\n// If incoming message is not auto, send a message indicating auto mode is now enforced\nif (msg.payload !== 'auto') {\n    // Create a response message to indicate automatic mode is enforced\n    var responseMsg = { payload: 'auto', topic: msg.topic };\n    return [responseMsg, msg];\n}\n\n// Just forward the auto mode message\nreturn [null, msg];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 540,
+        "wires": [
+            [
+                "mqtt_out"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "window_angle_input",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Window Angle Input",
+        "topic": "Medibox_Window_Angle_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 820,
+        "wires": [
+            [
+                "current_angle_text"
+            ]
+        ]
+    },
+    {
+        "id": "calculation_debug_in",
+        "type": "mqtt in",
+        "z": "medibox_flow",
+        "name": "Calculation Debug Input",
+        "topic": "Medibox_Calculation_Debug_Nuwan",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "light_intensity_group",
+        "type": "ui_group",
+        "name": "Light Intensity",
+        "tab": "medibox_dashboard",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "mqtt_broker",
+        "type": "mqtt-broker",
+        "name": "HiveMQ Cloud",
+        "broker": "df790ce588574283a4471d41351c34cc.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "node-red-medibox",
+        "autoConnect": true,
+        "usetls": true,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "medibox/status",
+        "birthQos": "1",
+        "birthRetain": "true",
+        "birthPayload": "Node-RED Online",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "medibox/status",
+        "willQos": "0",
+        "willRetain": "true",
+        "willPayload": "Node-RED Offline",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "temp_humid_group",
+        "type": "ui_group",
+        "name": "Temperature & Humidity",
+        "tab": "medibox_dashboard",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "servo_control_group",
+        "type": "ui_group",
+        "name": "Servo Control",
+        "tab": "medibox_dashboard",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "128298ab8fe6f665",
+        "type": "ui_group",
+        "name": "Notifications",
+        "tab": "medibox_dashboard",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "medibox_dashboard",
+        "type": "ui_tab",
+        "name": "Smart Medibox",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
