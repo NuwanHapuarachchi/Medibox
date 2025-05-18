@@ -28,7 +28,7 @@
 
 // LDR Pin definition
 #define LDR_PIN 34  // LDR sensor pin
-#define servoPin 27  // Servo motor pin
+#define servoPin 26  // Servo motor pin
 
 // NTP Server settings
 int UTC_OFFSET = 0;
@@ -169,9 +169,18 @@ float readLightIntensity(int pin) {
     Serial.printf("Error reading from pin %d\n", pin);
     return 0.5; // Return mid-range as fallback
   }
-  
-  // Map analog reading (0-4095 for ESP32's 12-bit ADC) to 0-1 range
+    // Map analog reading (0-4095 for ESP32's 12-bit ADC) to 0-1 range
   float normalizedValue = 1.0 - (rawValue / 4095.0);
+  
+  // Ensure the result is within valid range
+  if (normalizedValue < 0.0) {
+    Serial.println("Warning: Negative light intensity normalized to 0.0");
+    normalizedValue = 0.0;
+  } else if (normalizedValue > 1.0) {
+    Serial.println("Warning: Light intensity > 1.0 normalized to 1.0");
+    normalizedValue = 1.0;
+  }
+  
   return normalizedValue;
 }
 
@@ -181,21 +190,39 @@ void servoAngle(float lightIntensity) {
   TempAndHumidity data = dhtSensor.getTempAndHumidity();
   float currentTemp = data.temperature;
   int theta = 0; // Final angle to set
-  
-  // Always in automatic mode
+    // Always in automatic mode
   Serial.println("Auto mode only - calculating servo position");
   
   // Automatic mode - calculate angle based on the formula:
-  // θ = θoffset + (180 - θoffset) × I × γ × (T/Tmed)
+  // θ = θoffset + (180 - θoffset) × I × γ × ln(ts/tu) × (T/Tmed)
   float tempRatio = currentTemp / Tmed;
   
-  // Calculate the angle using the formula
-  theta = t_offset + (180 - t_offset) * lightIntensity * gamma_i * tempRatio;
+  // Ensure we don't divide by zero
+  if (sendInterval <= 0) {
+    Serial.println("Warning: Invalid send interval, using default value");
+    sendInterval = 120000; // Default 2 minutes
+  }
   
-  // Create debug message for formula calculation
-  char debugMsg[100];
-  sprintf(debugMsg, "θ = %d + (180-%d) × %.2f × %.2f × (%.1f/%.1f) = %d", 
-          t_offset, t_offset, lightIntensity, gamma_i, currentTemp, Tmed, theta);
+  float tstuRatio = (float)sampleInterval / (float)sendInterval; // ts/tu ratio in seconds
+  
+  // Prevent log(0) which would be -inf
+  if (tstuRatio <= 0) {
+    Serial.println("Warning: Invalid ts/tu ratio, using minimum value");
+    tstuRatio = 0.001; // Small positive number
+  }
+  
+  float logFactor = log(tstuRatio); // natural logarithm of ts/tu
+  
+  // Handle negative logarithm case (when ts < tu, which is typical)
+  // Use absolute value to ensure the formula works correctly
+  float absLogFactor = abs(logFactor);
+  
+  // Calculate the angle using the formula
+  theta = t_offset + (180 - t_offset) * lightIntensity * gamma_i * absLogFactor * tempRatio;
+    // Create debug message for formula calculation
+  char debugMsg[150]; // Increased buffer size for longer formula
+  sprintf(debugMsg, "θ = %d + (180-%d) × %.2f × %.2f × |ln(%.3f)| × (%.1f/%.1f) = %d (log=%.3f, abs=%.3f)", 
+          t_offset, t_offset, lightIntensity, gamma_i, tstuRatio, currentTemp, Tmed, theta, logFactor, absLogFactor);
   client.publish("Medibox_Calculation_Debug_Nuwan", debugMsg, true);
   
   // Detailed debug of the calculation
@@ -204,9 +231,14 @@ void servoAngle(float lightIntensity) {
   Serial.print(", light=");
   Serial.print(lightIntensity);
   Serial.print(", gamma=");
-  Serial.print(gamma_i);
-  Serial.print(", tempRatio=");
+  Serial.print(gamma_i);  Serial.print(", tempRatio=");
   Serial.print(tempRatio);
+  Serial.print(", tstuRatio=");
+  Serial.print(tstuRatio);
+  Serial.print(", logFactor=");
+  Serial.print(logFactor);
+  Serial.print(", absLogFactor=");
+  Serial.print(absLogFactor);
   Serial.print(", raw angle=");
   Serial.println(theta);
   
@@ -465,12 +497,32 @@ void connectToBroker() {
       char sendIntervalStr[10];
       sprintf(sendIntervalStr, "%d", sendInterval / 1000); // Convert ms to seconds
       client.publish("medibox/settings/sendInterval", sendIntervalStr, true);
-      
-      // Calculate the correct starting angle using auto mode formula
+        // Calculate the correct starting angle using auto mode formula with ln(ts/tu)
       TempAndHumidity data = dhtSensor.getTempAndHumidity();
       float lightIntensity = readLightIntensity(LDR_PIN);
-      float tempRatio = data.temperature / Tmed;
-      int calculated_angle = t_offset + (180 - t_offset) * lightIntensity * gamma_i * tempRatio;
+      
+      // Validate temperature reading
+      float currentTemp = data.temperature;
+      if (isnan(currentTemp) || currentTemp < -40 || currentTemp > 125) {
+        Serial.println("Warning: Invalid initial temperature reading, using default of 25°C");
+        currentTemp = 25.0; // Use a sensible default
+      }
+      
+      float tempRatio = currentTemp / Tmed;
+      float tstuRatio = (float)sampleInterval / (float)sendInterval; // ts/tu ratio in seconds
+      float logFactor = log(tstuRatio); // natural logarithm of ts/tu
+      
+      // Handle negative logarithm when ts < tu
+      float absLogFactor = abs(logFactor);
+      
+      Serial.print("Initial calculation: tstuRatio=");
+      Serial.print(tstuRatio);
+      Serial.print(", logFactor=");
+      Serial.print(logFactor);
+      Serial.print(", absLogFactor=");
+      Serial.println(absLogFactor);
+      
+      int calculated_angle = t_offset + (180 - t_offset) * lightIntensity * gamma_i * absLogFactor * tempRatio;
       
       // Constrain within limits
       if (calculated_angle < 0) calculated_angle = 0;
@@ -1213,9 +1265,9 @@ void loop() {
     delay(200);
     go_to_menu();
   }
-  
   // Process incoming MQTT messages again to ensure quick response
   client.loop();
-  
-  delay(5000); 
+
+  delay(3000); 
+
 }
