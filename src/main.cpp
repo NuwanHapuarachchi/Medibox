@@ -944,6 +944,7 @@ void set_alarm(int alarm) {
       alarm_hours[alarm] = temp_hour;
       break;
     }
+    
     else if (pressed == PB_CANCEL) {
       delay(200);
       return;
@@ -1167,7 +1168,7 @@ void loop() {
     // Display current light intensity on OLED
     char lightStr[10];
     sprintf(lightStr, "%.2f", lightIntensity);
-    print_line("Light: " + String(lightStr), 1, 30, 0);
+
     
     // Publish instant light reading for real-time display
     client.publish("medibox/light/instant", lightStr, false);
